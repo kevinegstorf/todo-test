@@ -6,7 +6,7 @@ import { TodoSearchPageComponent } from './pages/todo-search-page/todo-search-pa
 
 export const routes: Routes = [
     { path: 'overview', component: TodoOverviewPageComponent },
-    { path: 'detail', component: TodoDetailPageComponent },
+    { path: 'todo/:id', component: TodoDetailPageComponent },
     { path: 'search', component: TodoSearchPageComponent },
     // auth might be added later as it's an extra feature in the assignment
     { path: '', redirectTo: '/overview', pathMatch: 'full' }
