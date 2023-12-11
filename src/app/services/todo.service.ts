@@ -16,9 +16,6 @@ export class TodoService {
   // Fetch todos from the API
   getTodos(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
-      tap((todos) => {
-        console.log('Todos from API:', todos);
-      }),
       map((todos) => {
         this.todos = todos;
         return todos;
@@ -34,10 +31,39 @@ export class TodoService {
   getStoredTodos(): any[] {
     return this.todos;
   }
-
+  
   // Add a new todo in memory
   addTodoInMemory(newTodo: any): void {
     this.todos = [...this.todos, newTodo];
   }
+
+  // delete a todo in memory
+  deleteTodoInMemory(todoId: number): void {
+    this.todos = this.todos.filter((todo) => todo.id !== todoId);
+  }
+
+// update todo in memory
+  updateTodoInMemory(todoId: number, newTodo: any): void {
+    const todoIndex = this.todos.findIndex((todo) => todo.id === todoId);
+    this.todos[todoIndex] = newTodo;
+  }
+
+// gets a todo by id
+  getTodoById(id: number): Observable<Todo> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Todo>(url);
+  }
+
+  // 
+  findTodoByProperty(property: string, value: any): any {
+    return this.todos.find((todo) => todo[property] === value);
+  }
+}
+
+type Todo = {
+  "userId": number,
+  "id": number,
+  "title": string,
+  "completed": boolean
 }
 

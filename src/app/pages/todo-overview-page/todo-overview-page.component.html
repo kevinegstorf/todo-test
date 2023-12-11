@@ -1,8 +1,17 @@
 <div class="container mx-auto">
   <h2 class="text-2xl font-bold mb-4">Todo Overview</h2>
 
+  <form (submit)="createNewTodo()">
+    <div class="mb-4">
+      <label for="newTodoTitle" class="block text-gray-700 font-bold mb-2">Find Todo:</label>
+      <input type="text" id="newTodoTitle" name="newTodoTitle" class="w-full p-2 border rounded" required>
+    </div>
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Search</button>
+  </form>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-4">
     <div *ngFor="let todo of todos" class="rounded-lg overflow-hidden shadow-md">
+        <a [routerLink]="['/todo', todo.id]">
       <div class="p-4">
         <div class="text-xl font-bold mb-2">{{ todo.title }}</div>
         <div class="text-gray-700">
@@ -11,6 +20,7 @@
           <p>Status: <span class="{{ todo.completed ? 'text-green-500' : 'text-red-500' }}">{{ todo.completed ? 'Completed' : 'Not Completed' }}</span></p>
         </div>
       </div>
+    </a>
     </div>
   </div>
 

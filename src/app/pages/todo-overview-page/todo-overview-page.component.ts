@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-todo-overview-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './todo-overview-page.component.html',
   styleUrl: './todo-overview-page.component.css'
 })
@@ -19,6 +20,11 @@ export class TodoOverviewPageComponent implements OnInit {
     this.todoService.getTodos().subscribe((todos) => {
       this.todos = todos;
     });
+  }
+
+
+  createNewTodo(): void {
+    console.log('klik')
   }
 }
 

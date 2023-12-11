@@ -39,4 +39,17 @@ describe('TodoService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(dummyTodos); // Provide dummy values as the response
   });
+
+
+  it('should fetch a todo by id', () => {
+    const dummyTodo = { id: 1, title: 'Todo 1', completed: false } as any ;
+
+    service.getTodoById(1).subscribe(todo => {
+      expect(todo).toEqual(dummyTodo);
+    });
+
+    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/todos/1');
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyTodo); // Provide dummy values as the response
+  });
 });

@@ -1,1 +1,28 @@
-<p>todo-detail-page works!</p>
+<div *ngIf="todo" class="container mx-auto mt-8">
+  <h2 class="text-2xl font-bold mb-4">Todo Details</h2>
+
+  <div class="p-4 border border-gray-300 rounded-lg shadow-md">
+    <p class="text-gray-800">ID: {{ todo.id }}</p>
+    <p class="text-gray-800">Title: {{ todo.title }}</p>
+    <p>
+      Status: 
+      <span class="{{ todo.completed ? 'text-green-500' : 'text-red-500' }}">
+        {{ todo.completed ? 'Completed' : 'Not Completed' }}
+      </span>
+    </p>
+
+    <div class="mt-4">
+      <a routerLink="/overview" class="bg-blue-500 text-white py-2 px-4 rounded mr-2">Back</a>
+
+      <div>
+
+          <button (click)="updateTodo()" class="py-2 px-4 " >Update</button>
+          <button (click)="deleteTodo()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!todo" class="container mx-auto mt-8">
+  <p class="text-red-500">Todo not found.</p>
+</div>
