@@ -7,7 +7,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { TodoService } from './services/todo.service';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   imports: [
     BrowserModule,
