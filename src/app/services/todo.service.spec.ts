@@ -1,33 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { FormComponent } from '../components/form/form.component';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TodoService } from './todo.service';
+import { Todo } from '../models/todo.interface';
 
-describe('FormComponent', () => {
-  let component: FormComponent;
-  let fixture: ComponentFixture<FormComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ FormComponent ],
-      imports: [ FormsModule ]
-    })
-    .compileComponents();
-  });
+describe('TodoService', () => {
+  let service: TodoService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [TodoService]
+    });
+
+    service = TestBed.inject(TodoService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
-  it('should emit saveTodo event on onSubmit', () => {
-    spyOn(component.saveTodo, 'emit');
-    component.todo = { id: '1', title: 'Test Todo', completed: false };
-    component.onSubmit();
-    expect(component.saveTodo.emit).toHaveBeenCalledWith(component.todo);
+  it('should fetch todos', () => {
+    const mockTodos: Todo[] = [{ id: 1, title: 'Test Todo', completed: false }];
+
+    service.getTodosOrFetch().subscribe(todos => {
+      expect(todos.length).toBe(1);
+      expect(todos).toEqual(mockTodos);
+    });
+
+    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/todos');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockTodos);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 });
