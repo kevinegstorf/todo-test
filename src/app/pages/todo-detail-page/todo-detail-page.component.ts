@@ -30,6 +30,7 @@ export class TodoDetailPageComponent implements OnInit {
   // added function to update todo
   updateTodo(): void {
     this.todoService.updateTodo(this.todo);
+    // after update the user gets returned to the overview page
     this.router.navigate(['/overview']);
   }
 }

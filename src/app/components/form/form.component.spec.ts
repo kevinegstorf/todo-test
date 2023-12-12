@@ -25,7 +25,7 @@ describe('FormComponent', () => {
 
   it('should emit saveTodo event on onSubmit', () => {
     spyOn(component.saveTodo, 'emit');
-    component.todo = { id: '1', title: 'Test Todo', completed: false };
+    component.todo = { id: 1, title: 'Test Todo', completed: false };
     component.onSubmit();
     expect(component.saveTodo.emit).toHaveBeenCalledWith(component.todo);
   });

@@ -17,6 +17,7 @@ export class TodoOverviewPageComponent implements OnInit {
   constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
+    // Fetches the todos from the service 
     this.todoService.getTodosOrFetch().subscribe((todos) => {
       this.todos = todos;
     });

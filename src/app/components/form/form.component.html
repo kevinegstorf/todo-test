@@ -4,12 +4,6 @@
         <label for="title" class="block text-gray-700 font-bold mb-2">Task:</label>
         <input placeholder="task" type="text" id="title" name="title" class="w-full p-2 border rounded" [(ngModel)]="todo.title" required>
     </div>
-    <p>
-        Status: 
-        <span class="{{ todo.completed ? 'text-green-500' : 'text-red-500' }}">
-          {{ todo.completed ? 'Completed' : 'Not Completed' }}
-        </span>
-      </p>
     <div class="mt-4">
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded mr-2">Save</button>
       </div>
