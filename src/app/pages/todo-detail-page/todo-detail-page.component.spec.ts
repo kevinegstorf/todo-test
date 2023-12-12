@@ -16,7 +16,7 @@ describe('TodoDetailPageComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({ get: (key:any) => '1' }) // Mock the paramMap observable
+            paramMap: of({ get: (key:number) => 1 })
           }
         }
       ]
