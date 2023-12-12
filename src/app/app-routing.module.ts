@@ -8,7 +8,6 @@ export const routes: Routes = [
     { path: 'overview', component: TodoOverviewPageComponent },
     { path: 'todo/:id', component: TodoDetailPageComponent },
     { path: 'create', component: CreateTodoPageComponent },
-    // auth might be added later as it's an extra feature in the assignment
     { path: '', redirectTo: '/overview', pathMatch: 'full' }
 ];
 

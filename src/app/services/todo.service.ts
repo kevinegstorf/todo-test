@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Todo } from '../models/todo.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   // Fetch todos from the API
-  private getTodos(): Observable<any> {
+  private getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.apiUrl).pipe(
       map(todos => todos.slice(0, 10)),
       tap((todos) => {
@@ -64,9 +65,10 @@ export class TodoService {
   }
 
   // gets a todo by id
-  getTodoById(id: number): Observable<Todo> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Todo>(url);
+  getTodoById(id: number): Observable<Todo> { 
+    const currentTodos = this.todosSubject.value;
+    const todo: any = currentTodos.find((t) => t.id === id);
+    return of(todo);
   }
 
   getTodosLength(): number {
@@ -74,9 +76,4 @@ export class TodoService {
   }
 }
 
-type Todo = {
-  userId?: number;
-  id: number;
-  title: string;
-  completed: boolean;
-};
+

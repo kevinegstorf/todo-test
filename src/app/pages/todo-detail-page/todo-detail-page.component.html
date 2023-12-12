@@ -1,10 +1,7 @@
 <div *ngIf="todo" class="container mx-auto mt-8">
   <h2 class="text-2xl font-bold mb-4">Todo Details</h2>
-
   <div class="p-4 border border-gray-300 rounded-lg shadow-md">
-
-    <app-form [todo]="todo" (saveTodo)="updateTodo()" (deleteToDo)="deleteTodo()"></app-form>
-
+    <app-form [todo]="todo" (saveTodo)="updateTodo()"></app-form>
     <div class="mt-4">
       <a routerLink="/overview" class="bg-blue-500 text-white py-2 px-4 rounded mr-2">Back</a>
     </div>

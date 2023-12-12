@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.css'
 })
 export class FormComponent {
   @Input() todo: any = { id: '', title: '', completed: false }; // Input to receive todo data

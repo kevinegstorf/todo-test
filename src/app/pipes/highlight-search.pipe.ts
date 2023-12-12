@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Todo } from '../models/todo.interface';
 
 @Pipe({
   name: 'highlightSearch',
   standalone: true,
 })
 export class HighlightSearchPipe implements PipeTransform {
-  transform(todo: any, todos: any[]): string {
+  transform(todo: Todo, todos: Todo[]): string {
     if (!todo|| !todos || todos.length === 0) {
       return todo.title;
     }
 
-    
     const match = todos.some(
       obj => obj.title === todo.title && obj.id !== todo.id
     );
