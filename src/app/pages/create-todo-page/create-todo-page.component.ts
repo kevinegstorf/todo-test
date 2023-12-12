@@ -16,7 +16,7 @@ export class CreateTodoPageComponent {
 
   createTodo(todo: Todo): void {
     this.todoService.addTodo({title: todo.title, id: this.todoService.getTodosLength() + 1, completed: false});
-    // redirect to todo overview page
+    // redirect to todo overview page 
     this.router.navigate(['/overview']);
   }
 }

@@ -40,6 +40,7 @@ describe('TodoOverviewPageComponent', () => {
 
   it('should fetch todos on ngOnInit', () => {
     const mockTodos: Todo[] = [{ id: 1, title: 'Test Todo', completed: false }] as any;
+    
     getTodosOrFetchSpy.and.returnValue(of(mockTodos));
 
     fixture.detectChanges();

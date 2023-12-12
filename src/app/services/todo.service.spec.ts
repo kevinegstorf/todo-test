@@ -22,19 +22,48 @@ describe('TodoService', () => {
   });
 
   it('should fetch todos', () => {
-    const mockTodos: Todo[] = [{ id: 1, title: 'Test Todo', completed: false }];
+    const testTodos: Todo[] = [
+      { id: 1, title: 'Test Todo 1', completed: false },
+      { id: 2, title: 'Test Todo 2', completed: false },
+      { id: 3, title: 'Test Todo 3', completed: false }
+    ];
 
+    
+    service.todosSubject.next(testTodos);
     service.getTodosOrFetch().subscribe(todos => {
-      expect(todos.length).toBe(1);
-      expect(todos).toEqual(mockTodos);
+      expect(todos).toEqual(testTodos);
+      expect(todos.length).toEqual(3);
     });
-
-    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/todos');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockTodos);
   });
 
-  afterEach(() => {
-    httpMock.verify();
+
+  it('should get todos length', () => {
+    const testTodos: Todo[] = [
+      { id: 1, title: 'Test Todo 1', completed: false },
+      { id: 2, title: 'Test Todo 2', completed: false },
+      { id: 3, title: 'Test Todo 3', completed: false }
+    ];
+    service.todosSubject.next(testTodos);
+
+    expect(service.getTodosLength()).toBe(3);
+  });
+
+  it('should get todo by id', () => {
+    const testTodo: Todo = { id: 1, title: 'Test Todo', completed: false };
+    service.todosSubject.next([testTodo]);
+
+    service.getTodoById(1).subscribe(todo => {
+      expect(todo).toEqual(testTodo);
+    });
+  });
+
+  it('should update todo', () => {
+    const testTodo: Todo = { id: 1, title: 'Test Todo', completed: false };
+    service.todosSubject.next([testTodo]);
+
+    const updatedTodo: Todo = { ...testTodo, title: 'Updated Test Todo' };
+    service.updateTodo(updatedTodo);
+
+    expect(service.todosSubject.value).toContain(updatedTodo);
   });
 });

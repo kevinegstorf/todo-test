@@ -9,7 +9,7 @@ import { Todo } from '../models/todo.interface';
 })
 export class TodoService {
   private apiUrl = 'https://jsonplaceholder.typicode.com/todos';
-  private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
+  todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   todos$: Observable<Todo[]> = this.todosSubject.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -28,6 +28,7 @@ export class TodoService {
     );
   }
 
+  // Get todos from memory or fetch them from the API
   getTodosOrFetch(): Observable<Todo[]> {
     const currentTodos = this.todosSubject.value;
     if (currentTodos.length === 0) {
@@ -37,24 +38,11 @@ export class TodoService {
     }
   }
 
-  // Get todos stored in memory
-  getStoredTodos(): Todo[] {
-    return this.todosSubject.value;
-  }
-
   // Add a new todo in memory
   addTodo(newTodo: Todo): void {
     const currentTodos = this.todosSubject.value;
     this.todosSubject.next([...currentTodos, newTodo]);
   }
-
-  // delete a todo in memory
-  deleteTodo(todo: Todo): void {
-    const currentTodos = this.todosSubject.value;
-    const filteredTodos = currentTodos.filter((t) => t.id !== todo.id);
-    this.todosSubject.next(filteredTodos);
-  }
-
 
   // update todo in memory
   updateTodo(todo: Todo): void {
@@ -71,6 +59,7 @@ export class TodoService {
     return of(todo);
   }
 
+  // gets the length of the todos array
   getTodosLength(): number {
     return this.todosSubject.value.length;
   }

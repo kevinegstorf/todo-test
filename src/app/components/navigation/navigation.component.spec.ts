@@ -28,4 +28,20 @@ describe('NavigationComponent', () => {
     fixture.detectChanges();
     expect(component.title).toBe(title);
   });
+
+  it('should render navigation links', () => {
+    const compiled = fixture.nativeElement;
+    const title = 'Test Title';
+    component.title = title;
+    fixture.detectChanges();
+    expect(compiled.querySelector('nav')).toBeTruthy();
+
+    const links = compiled.querySelectorAll('a');
+    expect(links[0].textContent).toContain('Test Title');
+    expect(links[0].getAttribute('href')).toBe('/');
+    expect(links[1].textContent).toContain('Overview');
+    expect(links[1].getAttribute('href')).toBe('/overview');
+    expect(links[2].textContent).toContain('Create Todo');
+    expect(links[2].getAttribute('href')).toBe('/create');
+  });
 });
